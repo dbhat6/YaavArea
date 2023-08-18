@@ -19,3 +19,7 @@ management:
     metrics:
       export:
         enabled: true
+  info:
+    git:
+      enabled: true
+      mode: full
