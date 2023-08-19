@@ -6,6 +6,9 @@ spring:
     store-type: mongodb
     mongodb:
       collection-name: mySessions
+  data:
+    mongodb:
+      uri: "mongodb://localhost:27017/test"
 
 management:
   endpoints:

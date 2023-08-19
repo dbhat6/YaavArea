@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,15 +27,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(Customizer.withDefaults())
+//                .csrf(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable) // TODO: Fix csrf
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+//                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                 .requestMatchers("/user").hasRole("ADMIN")
+                                .requestMatchers("/user/*").hasRole("ADMIN")
                                 .requestMatchers("/actuator/prometheus").permitAll()
                                 .requestMatchers("/actuator/*").authenticated()
-                                .anyRequest().permitAll())
+                                .anyRequest().denyAll())
                 .build();
     }
 

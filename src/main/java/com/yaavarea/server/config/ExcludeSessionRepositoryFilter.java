@@ -16,7 +16,7 @@ public class ExcludeSessionRepositoryFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse httpResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (httpRequest.getRequestURI() == "/actuator/prometheus") {
+        if (httpRequest.getRequestURI().contains("/actuator")) {
             httpRequest.setAttribute("org.springframework.session.web.http.SessionRepositoryFilter.FILTERED", Boolean.TRUE);
         }
         filterChain.doFilter(httpRequest, httpResponse);
