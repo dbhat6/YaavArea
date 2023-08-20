@@ -1,27 +1,36 @@
 package com.yaavarea.server.config;
 
-import jakarta.servlet.DispatcherType;
+import com.yaavarea.server.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private AuthService authService;
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    SecurityConfig(AuthService authService, BCryptPasswordEncoder passwordEncoder) {
+        this.authService = authService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("admin").password(passwordEncoder.encode("password")).roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(user);
+    public DaoAuthenticationProvider authenticationProvider() {
+        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(authService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
     }
 
     @Bean
@@ -31,18 +40,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // TODO: Fix csrf
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
-                        auth
+                                auth
 //                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                                .requestMatchers("/user").hasRole("ADMIN")
-                                .requestMatchers("/user/*").hasRole("ADMIN")
-                                .requestMatchers("/actuator/prometheus").permitAll()
-                                .requestMatchers("/actuator/*").authenticated()
-                                .anyRequest().denyAll())
+                                        .requestMatchers("/user").authenticated()
+                                        .requestMatchers("/user/register").hasRole("ADMIN")
+                                        .requestMatchers("/user/**").authenticated()
+                                        .requestMatchers("/actuator/prometheus").permitAll()
+                                        .requestMatchers("/actuator/*").authenticated()
+                                        .anyRequest().denyAll()
+                )
+                .authenticationProvider(authenticationProvider())
                 .build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

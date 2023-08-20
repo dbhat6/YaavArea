@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Document
@@ -22,31 +24,22 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private int xpLevel;
     private int xp;
 
     @Indexed(unique = true)
     private String email;
 
-//    public User(String id,
-//                String firstName,
-//                String lastName,
-//                Date dateOfBirth,
-//                int xpLevel,
-//                int xp,
-//                String email) {
-//        this.id = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.dateOfBirth = dateOfBirth;
-//        this.xp = xp;
-//        this.xpLevel = xpLevel;
-//        this.email = new EmailAddress(email);
-//    }
-
-//    public void setEmail(String email) {
-//        EmailAddress emailAddress = new EmailAddress(email);
-//        this.email = emailAddress;
-//    }
+    public User update(final String id, final User user) {
+        final User newUser =  new User();
+        newUser.setId(id);
+        newUser.setEmail(user.getEmail());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setDateOfBirth(user.getDateOfBirth());
+        newUser.setXp(user.getXp());
+        newUser.setXpLevel(user.getXpLevel());
+        return newUser;
+    }
 }

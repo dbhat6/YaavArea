@@ -9,7 +9,9 @@ spring:
   data:
     mongodb:
       uri: "mongodb://localhost:27017/test"
-
+      auto-index-creation: true
+#  mvc:
+#    log-request-details: true
 management:
   endpoints:
     web:
