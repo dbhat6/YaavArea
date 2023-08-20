@@ -46,6 +46,7 @@ public class SecurityConfig {
                                         .requestMatchers("/user/register").hasRole("ADMIN")
                                         .requestMatchers("/user/**").authenticated()
                                         .requestMatchers("/actuator/prometheus").permitAll()
+                                        .requestMatchers("/actuator/health").permitAll()
                                         .requestMatchers("/actuator/*").authenticated()
                                         .anyRequest().denyAll()
                 )

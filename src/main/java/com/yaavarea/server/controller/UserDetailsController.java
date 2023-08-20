@@ -69,7 +69,7 @@ public class UserDetailsController {
 //        return ResponseEntity.ok(savedUser.getId());
 //    }
 
-    //    @PutMapping
+//    @PutMapping
 //    public ResponseEntity<Object> updateUser(@RequestBody User user) {
 //        Optional<User> response = userRepo.findByEmail(user.getEmail());
 //        if (response.isEmpty()) {

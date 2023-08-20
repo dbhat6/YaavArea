@@ -11,7 +11,6 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-//@Component
 public interface MapStructMapper {
     User userDtoToUser(UserDto userDto);
 
