@@ -1,22 +1,14 @@
-package com.yaavarea.server.model;
+package com.yaavarea.server.model.mongo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Document
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class User {
 
     @Id
@@ -30,6 +22,15 @@ public class User {
 
     @Indexed(unique = true)
     private String email;
+
+    public void gainXp(int xpEarned) {
+        if((xp + xpEarned) > xpLevel * 1.5 * 100) {
+            xpLevel++;
+            xp = (int) ((xp + xpEarned) % xpLevel * 1.5 * 100);
+        } else {
+            xp = xp + xpEarned;
+        }
+    }
 
     public User update(final String id, final User user) {
         final User newUser =  new User();

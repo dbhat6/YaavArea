@@ -5,11 +5,12 @@ spring:
   session:
     store-type: mongodb
     mongodb:
-      collection-name: mySessions
+      collection-name: "mySessions"
   data:
     mongodb:
-      uri: "mongodb://localhost:27017/test"
-      auto-index-creation: true
+      uri: "mongodb://localhost:27017/YaavArea"
+#      auto-index-creation: true
+      database: "YaavArea"
 #  mvc:
 #    log-request-details: true
 management:
@@ -28,3 +29,8 @@ management:
     git:
       enabled: true
       mode: full
+logging:
+  level:
+    root: error
+    com.yaavarea: trace
+    web: error

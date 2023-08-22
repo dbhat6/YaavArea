@@ -1,11 +1,12 @@
 package com.yaavarea.server.controller;
 
-import com.yaavarea.server.model.User;
+import com.yaavarea.server.model.mongo.User;
 import com.yaavarea.server.model.dto.ResponseDto;
 import com.yaavarea.server.model.dto.UserDto;
 import com.yaavarea.server.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserDetailsController {
 
     private UserService userService;
@@ -45,12 +47,20 @@ public class UserDetailsController {
 
     @PostMapping("/register")
     public ResponseEntity<ResponseDto> createUser(@Valid @RequestBody UserDto userDto) {
+        log.trace("Registering a new user");
         try {
             userService.createUser(userDto);
+            log.trace("User registered");
             ResponseDto response = ResponseDto.builder().message("User Created").build();
             return ResponseEntity.ok(response);
         } catch (DuplicateKeyException ex) {
+            log.error("User already exists with the email {}", userDto.getEmail());
             ResponseDto response = ResponseDto.builder().message("User already exists")
+                    .errorMessage(ex.getMessage()).build();
+            return ResponseEntity.status(500).body(response);
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred: {}", ex.getMessage());
+            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
                     .errorMessage(ex.getMessage()).build();
             return ResponseEntity.status(500).body(response);
         }
@@ -80,12 +90,20 @@ public class UserDetailsController {
 //    }
 //
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> fetchUserByEmail(@PathVariable String email) {
+    public ResponseEntity<Object> fetchUserByEmail(@PathVariable String email) {
+        log.trace("Fetching a new user");
         try {
             User user = userService.fetchUserByEmail(email);
+            log.trace("User fetched");
             return ResponseEntity.ok(user);
         } catch (NoSuchElementException ex) {
+            log.error("User with the email {} doesn't exist", email);
             return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred: {}", ex.getMessage());
+            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
+                    .errorMessage(ex.getMessage()).build();
+            return ResponseEntity.status(500).body(response);
         }
     }
 

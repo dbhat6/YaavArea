@@ -1,6 +1,6 @@
 package com.yaavarea.server.service;
 
-import com.yaavarea.server.model.UserPass;
+import com.yaavarea.server.model.mongo.UserPass;
 import com.yaavarea.server.model.dto.UserDto;
 import com.yaavarea.server.model.mapper.MapStructMapperImpl;
 import com.yaavarea.server.repo.UserPassRepo;

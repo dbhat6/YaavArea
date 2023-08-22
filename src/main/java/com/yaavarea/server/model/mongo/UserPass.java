@@ -1,4 +1,4 @@
-package com.yaavarea.server.model;
+package com.yaavarea.server.model.mongo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

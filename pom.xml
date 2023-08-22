@@ -69,9 +69,29 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.wololo</groupId>
+			<artifactId>jts2geojson</artifactId>
+			<version>0.18.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.libphonenumber</groupId>
+			<artifactId>libphonenumber</artifactId>
+			<version>8.13.19</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

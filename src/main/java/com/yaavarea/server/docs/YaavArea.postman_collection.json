@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "1e5cd239-acbe-4434-aab9-146f2f3289fd",
+		"name": "YaavArea",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25457090"
+	},
+	"item": [
+		{
+			"name": "Create Constituency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.cookies)",
+							"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
+							"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "deepakbht67@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypass",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"ShivajiNagar\",\n    \"leader\": \"Abdullah\",\n    \"geometry\": {\n        \"coordinates\": [\n            [\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ],\n                [\n                    77.60524042879086,\n                    12.981536727084546\n                ],\n                [\n                    77.60592443627212,\n                    12.982203252153298\n                ],\n                [\n                    77.61010448199329,\n                    12.980944258856269\n                ],\n                [\n                    77.61170049945105,\n                    12.98449904704185\n                ],\n                [\n                    77.61390452355863,\n                    12.99049763678336\n                ],\n                [\n                    77.60668444458588,\n                    12.995681486527886\n                ],\n                [\n                    77.6041764171527,\n                    12.992274968886548\n                ],\n                [\n                    77.60227639637054,\n                    12.991756581670856\n                ],\n                [\n                    77.60014837309427,\n                    12.992497134505314\n                ],\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ]\n            ]\n        ],\n        \"type\": \"Polygon\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/constituency",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"constituency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.cookies)",
+							"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
+							"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"dbhat6\",\n  \"firstName\": \"Deepak\",\n  \"lastName\": \"Bhat\",\n  \"email\": \"deepakbht67@gmail.com\",\n  \"password\": \"mypass\",\n  \"dateOfBirth\": \"2023-08-19\",\n  \"roles\": [\"ADMIN\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mypass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "deepakbht67@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vehicleId\": \"vehicle-001\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudENvZGUiOiJYWFhYIiwidmVoaWNsZUlkIjoidmVoaWNsZS0wMDEiLCJ2ZWhpY2xlc0ludm9sdmVkIjpbInZlaGljbGUtMDAyIiwidmVoaWNsZS0wMDMiXSwid2l0bmVzc1JlcG9ydHMiOlt7InZlaGljbGVJZCI6InZlaGljbGUtMDA0IiwiZGlkRXZlbnRPY2N1clRva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnlaWE53YjI1elpTSTZabUZzYzJWOS5Xek9tcldtdlZVS1pSVWltTXVPRDE0bEpfY3RXc0ZUVWROcHJjTjJhaWo1VER1YVFVNzZGcjE5Z1E0dTNOeUxqOElZZWZna0JsNkU5bV9UN0p3YlljZ3BQaXRsakhRXzBEb1oxMldSQU8xN3NPeGRFMDBGSEpwWFpTUFJ2YjBDU25ZU1YyLW1DbXUyN3k5N0M0NF9fMFR1WDFYeGZFWjZZdTVCUXY5TVdZZ3ViZEdkY2FOcloxVEYwSGpUUENLQXRtWFh5M1VJcWtyZEMtSGxjNGtKSi1EclZwSWtpWENuRVpjcUdFWFVpQlhUNEd2ZmhBRzRDUGVLcEZzUWsxSkVhT3B2b0dzUTVqVm9RbEpTZTZmaVdNX2daWG01YUdUaGhJekdiLXFMVTZHZjVSeW9GSEV1dlVlLVoyT25SS0I2X1VuWC1ZVV9PMmdLZ0RNZnBaWW9iRlEifSx7InZlaGljbGVJZCI6InZlaGljbGUtMDA1IiwiZGlkRXZlbnRPY2N1clRva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnlaWE53YjI1elpTSTZkSEoxWlgwLnNHaXUtVDNLZmZDSS1zeFZaS1VoTFg2ckZiRzhWamVaUjdGRnExcThLbGxHM0NSV3NJc0FkTlNNT2JBem1wRGhSWFdtbnZiUkFKMUZrMVFJY01XeUZfM2llMzlYZUR2aV9pWEdaamkwaE4zV2xqcW9VUmIwUm1lWXhoV0tSNGVTUmtTRVRnVnMwX2h0bWdqRVIxN3hMbkdpc0UwbDJlYUFSYTNuY1AxYzAyYjJ2OFdyZm42cS1uUVpGc2tpMnFpNXlxQ1F5djhTbENHVXQtcTF6bEtZUWoyckg4Mk5uei1pTXZ2R1dQazJXNnlwd2R1RXpIWjZhczVERW9LbGpzYkZpcUJOcThuNExndWk4WTlXdHp3Tlgtdnp4OWhpbDVtT04ySHVnVDR3YnF4cFZhcjFaU1RWcXkxc1VHRVdiQXBCb3paejktejZGWjdsZzFWYlEyMXk3dyJ9XX0.qH_Ws2lyBS4_N5J_V9veWqosLf4BFA2Jsw0_ycnXyLA2zS1ebryv8fstjCo_02fwzGkfEMUK5KfP5ftVUIrj60gTG9OYP83aRC2oCj6YFNJ5zUP5NXA6R3nmmKMxjXoS44mf2z4NvpNaaIZ-NPetlPtNtkKDwZJZ1A65rac_eZG6bdB1qD8leOJK3IoFun9GnofwRufGOvghgnbyYhlXixEg65VzKk7odRyP3glv3rG-4KQG7qWVxdsFoU00YX_d1RfmX6RNUbVf_mcX6L0Aj93dohx9AyUWfe1cl6kAl-6IdyMlXrZOWZcP3odY3BrmqQb3RyxURyZ29hgG7RYKzg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/actuator/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"actuator",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/user/id/dbhat6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"user",
+						"id",
+						"dbhat6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by Email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "kart@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypass",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "SESSION",
+						"value": "0E31E3D68D30E8190FD956F39FE58728",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9000/user/email/kart@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"user",
+						"email",
+						"kart@gmail.com"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "deepakbht67@gmail.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

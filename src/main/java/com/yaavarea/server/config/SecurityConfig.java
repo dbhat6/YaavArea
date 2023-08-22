@@ -43,12 +43,14 @@ public class SecurityConfig {
                                 auth
 //                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                         .requestMatchers("/user").authenticated()
-                                        .requestMatchers("/user/register").hasRole("ADMIN")
+                                        .requestMatchers("/constituency/**").hasRole("ADMIN")
+                                        .requestMatchers("/user/register").permitAll() // TODO: Change this later on to only admins
                                         .requestMatchers("/user/**").authenticated()
                                         .requestMatchers("/actuator/prometheus").permitAll()
                                         .requestMatchers("/actuator/health").permitAll()
                                         .requestMatchers("/actuator/*").authenticated()
-                                        .anyRequest().denyAll()
+                                        .requestMatchers("/v2/api-docs").permitAll()
+                                        .anyRequest().permitAll()
                 )
                 .authenticationProvider(authenticationProvider())
                 .build();
