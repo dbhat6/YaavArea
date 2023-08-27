@@ -15,9 +15,5 @@ public class LocalBusinessDto extends MapObject {
     @NotBlank
     private String type;
     @NotNull
-    private GeoJsonMultiPoint geometry;
-
-    public void addNewPoint(GeoJsonPoint point) {
-        this.geometry.getCoordinates().add(point);
-    }
+    private GeoJsonPoint geometry;
 }

@@ -2,7 +2,9 @@ package com.yaavarea.server.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 @Data
 public class MapObject {
@@ -14,6 +16,7 @@ public class MapObject {
     @NotNull
     @NotBlank
     private String description;
-    @NotNull
     private Rating rating;
+
+
 }

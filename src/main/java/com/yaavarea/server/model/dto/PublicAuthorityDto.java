@@ -16,11 +16,8 @@ public class PublicAuthorityDto extends MapObject {
     @NotBlank
     private String party;
     @NotNull
-    private Contact contact;
-    @NotNull
-    private GeoJsonMultiPoint geometry;
+    private ContactDto contact;
 
-    public void addNewPoint(GeoJsonPoint point) {
-        this.geometry.getCoordinates().add(point);
-    }
+    @NotNull
+    private GeoJsonPoint geometry;
 }

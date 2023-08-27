@@ -1,23 +1,22 @@
-package com.yaavarea.server.model;
+package com.yaavarea.server.model.dto;
 
-import com.google.i18n.phonenumbers.Phonenumber;
 import com.yaavarea.server.config.RequiredKeys;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 @Data
-public class Contact {
+public class ContactDto {
     private Set<String> email;
 
     @NotNull
     @RequiredKeys({"name", "countryCode", "contactNumber"})
     private List<Map<String, String>> mobileNumbers;
 
-    public Contact() {
+    public ContactDto() {
         this.email = new HashSet<>();
         this.mobileNumbers = new ArrayList<>();
     }

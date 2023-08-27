@@ -1,7 +1,10 @@
 package com.yaavarea.server.utils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 public class DateUtils {
 
@@ -21,8 +24,8 @@ public class DateUtils {
     }
 
     // Calculate the date after adding a specific number of days to a given date
-    public static LocalDate addDays(LocalDate date, long daysToAdd) {
-        return date.plusDays(daysToAdd);
+    public static LocalDateTime addDays(LocalDateTime date, long daysToAdd) {
+        return date.toLocalDate().plusDays(daysToAdd).atStartOfDay();
     }
 
     // Calculate the date after adding a specific number of months to a given date
@@ -33,5 +36,11 @@ public class DateUtils {
     // Calculate the date after adding a specific number of years to a given date
     public static LocalDate addYears(LocalDate date, long yearsToAdd) {
         return date.plusYears(yearsToAdd);
+    }
+
+    public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 }

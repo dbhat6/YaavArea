@@ -1,10 +1,7 @@
 package com.yaavarea.server.model;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 import java.util.ArrayDeque;
 
@@ -14,7 +11,6 @@ public class Rating {
     private int totalScore;
     @NotNull
     private int totalRated;
-    @Setter(AccessLevel.NONE)
     @NotNull
     private ArrayDeque<String> ratingGivenBy;
 
@@ -22,11 +18,15 @@ public class Rating {
         return ((double) totalScore) / totalRated;
     }
 
-    public void addRater(String value) {
+    public void addNewRating(int rating, String name) {
         int maxLength = 5;
+        if (ratingGivenBy == null)
+            ratingGivenBy = new ArrayDeque<>();
         if (ratingGivenBy.size() >= maxLength) {
             ratingGivenBy.pollFirst(); // Remove the oldest element
         }
-        ratingGivenBy.offerLast(value); // Add the new element to the end
+        ratingGivenBy.offerLast(name); // Add the new element to the end
+        totalScore += rating;
+        totalRated++;
     }
 }

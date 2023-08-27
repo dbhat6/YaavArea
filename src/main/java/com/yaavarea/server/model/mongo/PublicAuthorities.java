@@ -2,6 +2,7 @@ package com.yaavarea.server.model.mongo;
 
 import com.yaavarea.server.model.Contact;
 import com.yaavarea.server.model.Rating;
+import com.yaavarea.server.model.dto.ContactDto;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonMultiPoint;
@@ -22,4 +23,11 @@ public class PublicAuthorities {
 
     @GeoSpatialIndexed(useGeneratedName = true, type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonMultiPoint geometry;
+
+    public void addContact(ContactDto contact) {
+        if(this.contact == null)
+            this.contact = new Contact();
+        this.contact.getEmail().addAll(contact.getEmail());
+        this.contact.getMobileNumbers().addAll(contact.getMobileNumbers());
+    }
 }

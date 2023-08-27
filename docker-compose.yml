@@ -8,7 +8,16 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-
+  prometheus-exporter:
+    image: percona/mongodb_exporter:0.20
+    container_name: prometheus-exporter
+    ports:
+      - "9216:9216"
+      - "17001:17001"
+    depends_on:
+      - prometheus
+    command:
+      - "--mongodb.uri=mongodb://127.0.0.1:17001"
   grafana:
     image: grafana/grafana:9.5.2
     container_name: grafana

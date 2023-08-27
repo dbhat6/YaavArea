@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Document
 @Data
@@ -22,7 +23,7 @@ public class Events {
     private String type;
 
     @Indexed(expireAfterSeconds = 0)
-    private LocalDate expireAt;
+    private LocalDateTime expireAt;
 
     @GeoSpatialIndexed(useGeneratedName = true, type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint geometry;
