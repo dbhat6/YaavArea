@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -125,7 +126,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/exists")
+    @GetMapping(value = "/exists", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> checkUserIdExists(@RequestParam String id) {
         log.trace("Checking if {} exists", id);
         try {

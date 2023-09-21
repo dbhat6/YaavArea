@@ -45,6 +45,7 @@ public class SecurityConfig {
                                         .requestMatchers("/user").authenticated()
                                         .requestMatchers("/constituency/**").hasRole("ADMIN")
                                         .requestMatchers("/user/register").permitAll() // TODO: Change this later on to only admins
+                                        .requestMatchers("/v3/api-docs/**").permitAll()
                                         .requestMatchers("/user/**").authenticated()
                                         .requestMatchers("/actuator/prometheus").permitAll()
                                         .requestMatchers("/actuator/health").permitAll()
