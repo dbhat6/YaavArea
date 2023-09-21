@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface UserPassRepo extends MongoRepository<UserPass, String> {
     Optional<UserPass> findByUsername(String username);
+
+    void deleteByUsername(String username);
 }

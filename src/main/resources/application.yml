@@ -17,7 +17,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: ["info", "prometheus","health", "metrics", "beans"]
+        include: ["info", "prometheus","health", "metrics"]
   endpoint:
     health:
       show-details: when_authorized

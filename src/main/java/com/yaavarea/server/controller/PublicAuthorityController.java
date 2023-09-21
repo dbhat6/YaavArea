@@ -69,24 +69,6 @@ public class PublicAuthorityController {
         }
     }
 
-    @PutMapping("/{id}/rate")
-    public ResponseEntity<ResponseDto> newRating(@RequestBody Rate rate, @PathVariable String id) {
-        try {
-            Double newRating = publicAuthoritiesService.updateRating(rate, id);
-            ResponseDto response = ResponseDto.builder().message("Rating updated")
-                    .data(newRating).build();
-            return ResponseEntity.ok(response);
-        } catch (NoSuchElementException ex) {
-            log.error("Public authority with the id {} doesn't exist", id);
-            return ResponseEntity.notFound().build();
-        } catch (Exception ex) {
-            log.error("Unexpected error occurred: {}", ex.getMessage());
-            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
-                    .errorMessage(ex.getMessage()).build();
-            return ResponseEntity.status(500).body(response);
-        }
-    }
-
     @GetMapping("/{id}/rating")
     public ResponseEntity<Double> fetchEventRating(@PathVariable String id) {
         double rating = publicAuthoritiesService.fetchRating(id);

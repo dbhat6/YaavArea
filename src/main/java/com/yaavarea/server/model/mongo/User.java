@@ -1,11 +1,15 @@
 package com.yaavarea.server.model.mongo;
 
+import com.yaavarea.server.model.dto.AdditionalUserInfoDto;
 import lombok.*;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Document
 @Data
@@ -17,30 +21,33 @@ public class User {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private int xpLevel;
-    private int xp;
 
     @Indexed(unique = true)
     private String email;
 
-    public void gainXp(int xpEarned) {
-        if((xp + xpEarned) > xpLevel * 1.5 * 100) {
-            xpLevel++;
-            xp = (int) ((xp + xpEarned) % xpLevel * 1.5 * 100);
-        } else {
-            xp = xp + xpEarned;
-        }
-    }
+    private List<Map<String, String>> mobileNumber;
 
-    public User update(final String id, final User user) {
-        final User newUser =  new User();
-        newUser.setId(id);
-        newUser.setEmail(user.getEmail());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setDateOfBirth(user.getDateOfBirth());
-        newUser.setXp(user.getXp());
-        newUser.setXpLevel(user.getXpLevel());
-        return newUser;
-    }
+    private AdditionalUserInfoDto userStats;
+
+    @Indexed
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @CreatedBy
+    private String createdBy;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+    @LastModifiedBy
+    private String updatedBy;
+
+//    public User update(final String id, final User user) {
+//        final User newUser =  new User();
+//        newUser.setId(id);
+//        newUser.setEmail(user.getEmail());
+//        newUser.setFirstName(user.getFirstName());
+//        newUser.setLastName(user.getLastName());
+//        newUser.setDateOfBirth(user.getDateOfBirth());
+//        newUser.setXp(user.getXp());
+//        newUser.setXpLevel(user.getXpLevel());
+//        return newUser;
+//    }
 }

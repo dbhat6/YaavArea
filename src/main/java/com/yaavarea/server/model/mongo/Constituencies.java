@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document
 @Data
 public class Constituencies {
@@ -15,7 +17,7 @@ public class Constituencies {
     private String id;
     private String name;
     private String leader;
-    private String fact;
+    private List<String> fact;
 
     @GeoSpatialIndexed(useGeneratedName = true, type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPolygon geometry;

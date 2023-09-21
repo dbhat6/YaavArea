@@ -17,17 +17,17 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class UserDetailsController {
+public class UserController {
 
     private UserService userService;
 
     @Autowired
-    public UserDetailsController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
 
-    @GetMapping
+//    @GetMapping
     public Integer getUser(HttpSession session) {
         Integer counter = (Integer) session.getAttribute("count");
 
@@ -98,7 +98,7 @@ public class UserDetailsController {
             return ResponseEntity.ok(user);
         } catch (NoSuchElementException ex) {
             log.error("User with the email {} doesn't exist", email);
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         } catch (Exception ex) {
             log.error("Unexpected error occurred: {}", ex.getMessage());
             ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
@@ -107,12 +107,54 @@ public class UserDetailsController {
         }
     }
 
-//    @GetMapping("/id/{id}")
-//    public ResponseEntity<User> fetchUserById(@PathVariable String id) {
-//        Optional<User> savedUser = userRepo.findById(id);
-//        if (savedUser.isPresent())
-//            return ResponseEntity.ok(savedUser.get());
-//        else
-//            return ResponseEntity.notFound().build();
-//    }
+    @GetMapping
+    public ResponseEntity<Object> fetchUserById(@RequestParam String id) {
+        log.trace("Fetching a new user");
+        try {
+            User user = userService.fetchUserById(id);
+            log.trace("User fetched");
+            return ResponseEntity.ok(user);
+        } catch (NoSuchElementException ex) {
+            log.error("User with the email {} doesn't exist", id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred: {}", ex.getMessage());
+            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
+                    .errorMessage(ex.getMessage()).build();
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    @GetMapping("/exists")
+    public ResponseEntity<Object> checkUserIdExists(@RequestParam String id) {
+        log.trace("Checking if {} exists", id);
+        try {
+            userService.checkUserIdExists(id);
+            log.trace("User exists");
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException ex) {
+            log.error("User with the email {} doesn't exist", id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred: {}", ex.getMessage());
+            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
+                    .errorMessage(ex.getMessage()).build();
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Object> removeUserByEmail(@RequestParam("email") String email) {
+        log.trace("Deleting a user with email: {}", email);
+        try {
+            userService.removeUser(email);
+            log.trace("User deleted");
+            return ResponseEntity.ok().build();
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred: {}", ex.getMessage());
+            ResponseDto response = ResponseDto.builder().message("Unexpected error occurred")
+                    .errorMessage(ex.getMessage()).build();
+            return ResponseEntity.status(500).body(response);
+        }
+    }
 }

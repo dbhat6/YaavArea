@@ -42,4 +42,9 @@ public class AuthService implements UserDetailsService {
         userPass = userPassRepo.insert(userPass);
         return userPass.getId();
     }
+
+    public boolean removeUser(String username) {
+        userPassRepo.deleteByUsername(username);
+        return true;
+    }
 }

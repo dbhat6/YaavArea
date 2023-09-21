@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.geo.GeoJsonPolygon;
 import org.wololo.geojson.GeoJSON;
 
+import java.util.List;
+
 @Data
 @Builder
 public class ConstituencyDto {
@@ -15,7 +17,7 @@ public class ConstituencyDto {
     @NotBlank
     private String name;
     private String leader;
-    private String fact;
+    private List<String> fact;
     @NotNull
     private GeoJsonPolygon geometry;
 }

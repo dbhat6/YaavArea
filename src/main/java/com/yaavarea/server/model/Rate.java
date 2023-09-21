@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class Rate {
     private int rating;
-    private String name;
+    private String userId;
 }

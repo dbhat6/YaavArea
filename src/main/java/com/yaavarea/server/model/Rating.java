@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Rating {
@@ -12,21 +14,27 @@ public class Rating {
     @NotNull
     private int totalRated;
     @NotNull
-    private ArrayDeque<String> ratingGivenBy;
+    private Map<String, Integer> ratings;
 
     public double fetchRating() {
         return ((double) totalScore) / totalRated;
     }
 
-    public void addNewRating(int rating, String name) {
-        int maxLength = 5;
-        if (ratingGivenBy == null)
-            ratingGivenBy = new ArrayDeque<>();
-        if (ratingGivenBy.size() >= maxLength) {
-            ratingGivenBy.pollFirst(); // Remove the oldest element
-        }
-        ratingGivenBy.offerLast(name); // Add the new element to the end
+    public boolean addNewRating(int rating, String id) {
+        if(ratings == null)
+            ratings = new HashMap<>();
+
+        Integer rate = ratings.get(id);
+        ratings.put(id, rating);
         totalScore += rating;
-        totalRated++;
+
+        if (rate != null) {
+            totalScore -= rate;
+            return false;
+        }
+        else {
+            totalRated++;
+            return true;
+        }
     }
 }

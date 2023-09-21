@@ -66,14 +66,14 @@ public class LocalBusinessService {
         return localBusiness.getContent();
     }
 
-    public double updateRating(Rate rate, String id) {
+    public boolean updateRating(Rate rate, String id) {
         Optional<LocalBusiness> optionalLocalBusiness = localBusinessRepo.findById(id);
         if(optionalLocalBusiness.isEmpty())
             throw new NoSuchElementException("No such local businesses found");
         LocalBusiness localBusiness = optionalLocalBusiness.get();
-        localBusiness.getRating().addNewRating(rate.getRating(), rate.getName());
+        boolean newRating = localBusiness.getRating().addNewRating(rate.getRating(), rate.getUserId());
         localBusinessRepo.save(localBusiness);
-        return localBusiness.getRating().fetchRating();
+        return newRating;
     }
 
     public double fetchRating(String id) {

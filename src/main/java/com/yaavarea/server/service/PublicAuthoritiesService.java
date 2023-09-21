@@ -78,14 +78,14 @@ public class PublicAuthoritiesService {
         return publicAuthorities.getContent();
     }
 
-    public double updateRating(Rate rate, String id) {
+    public boolean updateRating(Rate rate, String id) {
         Optional<PublicAuthorities> publicAuthoritiesOptional = publicAuthoritiesRepo.findById(id);
         if (publicAuthoritiesOptional.isEmpty())
             throw new NoSuchElementException("No such public authority found");
         PublicAuthorities publicAuthorities = publicAuthoritiesOptional.get();
-        publicAuthorities.getRating().addNewRating(rate.getRating(), rate.getName());
+        boolean newRating = publicAuthorities.getRating().addNewRating(rate.getRating(), rate.getUserId());
         publicAuthoritiesRepo.save(publicAuthorities);
-        return publicAuthorities.getRating().fetchRating();
+        return newRating;
     }
 
     public double fetchRating(String id) {

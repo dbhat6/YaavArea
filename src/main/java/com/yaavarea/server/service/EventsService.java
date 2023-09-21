@@ -54,15 +54,14 @@ public class EventsService {
         eventsRepo.save(modifiedEvent);
     }
 
-    public double updateRating(Rate rate, String id) {
+    public boolean updateRating(Rate rate, String id) {
         Optional<Events> event = eventsRepo.findById(id);
         if(event.isEmpty())
             throw new NoSuchElementException("No such event found");
         Events updatedEvent = event.get();
-        updatedEvent.getRating().addNewRating(rate.getRating(), rate.getName());
+        boolean newRating = updatedEvent.getRating().addNewRating(rate.getRating(), rate.getUserId());
         eventsRepo.save(updatedEvent);
-        return updatedEvent.getRating().fetchRating();
-//        rating.addNewRating(rate.getRating(), rate.getName());
+        return newRating;
     }
 
     public double fetchRating(String id) {
