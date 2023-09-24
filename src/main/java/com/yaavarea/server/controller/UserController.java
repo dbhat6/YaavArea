@@ -1,9 +1,14 @@
 package com.yaavarea.server.controller;
 
-import com.yaavarea.server.model.mongo.User;
 import com.yaavarea.server.model.dto.ResponseDto;
 import com.yaavarea.server.model.dto.UserDto;
+import com.yaavarea.server.model.mongo.User;
+import com.yaavarea.server.service.AuthService;
 import com.yaavarea.server.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +23,20 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@Tag(name = "Users", description = "The Users Api")
 public class UserController {
 
     private UserService userService;
+    private AuthService authService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
 
-//    @GetMapping
+    //    @GetMapping
     public Integer getUser(HttpSession session) {
         Integer counter = (Integer) session.getAttribute("count");
 
@@ -51,6 +59,7 @@ public class UserController {
         log.trace("Registering a new user");
         try {
             userService.createUser(userDto);
+            authService.saveUser(userDto);
             log.trace("User registered");
             ResponseDto response = ResponseDto.builder().message("User Created").build();
             return ResponseEntity.ok(response);
@@ -80,7 +89,7 @@ public class UserController {
 //        return ResponseEntity.ok(savedUser.getId());
 //    }
 
-//    @PutMapping
+    //    @PutMapping
 //    public ResponseEntity<Object> updateUser(@RequestBody User user) {
 //        Optional<User> response = userRepo.findByEmail(user.getEmail());
 //        if (response.isEmpty()) {
@@ -108,7 +117,13 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Fetch a user by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "204", description = "No user found"),
+            @ApiResponse(responseCode = "500", description = "Server error")
+    })
     public ResponseEntity<Object> fetchUserById(@RequestParam String id) {
         log.trace("Fetching a new user");
         try {
@@ -149,6 +164,7 @@ public class UserController {
         log.trace("Deleting a user with email: {}", email);
         try {
             userService.removeUser(email);
+            authService.removeUser(email);
             log.trace("User deleted");
             return ResponseEntity.ok().build();
         } catch (Exception ex) {

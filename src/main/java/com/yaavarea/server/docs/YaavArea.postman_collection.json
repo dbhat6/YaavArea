@@ -7,252 +7,848 @@
 	},
 	"item": [
 		{
-			"name": "Create Constituency",
-			"event": [
+			"name": "User",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"console.log(pm.cookies)",
-							"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
-							"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
+					"name": "Create User",
+					"event": [
 						{
-							"key": "username",
-							"value": "deepakbht67@gmail.com",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "mypass",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.cookies)",
+									"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
+									"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-CSRF-TOKEN",
-						"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"ShivajiNagar\",\n    \"leader\": \"Abdullah\",\n    \"geometry\": {\n        \"coordinates\": [\n            [\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ],\n                [\n                    77.60524042879086,\n                    12.981536727084546\n                ],\n                [\n                    77.60592443627212,\n                    12.982203252153298\n                ],\n                [\n                    77.61010448199329,\n                    12.980944258856269\n                ],\n                [\n                    77.61170049945105,\n                    12.98449904704185\n                ],\n                [\n                    77.61390452355863,\n                    12.99049763678336\n                ],\n                [\n                    77.60668444458588,\n                    12.995681486527886\n                ],\n                [\n                    77.6041764171527,\n                    12.992274968886548\n                ],\n                [\n                    77.60227639637054,\n                    12.991756581670856\n                ],\n                [\n                    77.60014837309427,\n                    12.992497134505314\n                ],\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ]\n            ]\n        ],\n        \"type\": \"Polygon\"\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9000/constituency",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "9000",
-					"path": [
-						"constituency"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create User",
-			"event": [
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"bot\",\n  \"firstName\": \"Bot\",\n  \"lastName\": \"Doe\",\n  \"email\": \"botdoe@gmail.com\",\n  \"password\": \"bot123\",\n  \"dateOfBirth\": \"1993-08-19\",\n  \"roles\": [\"USER\"],\n  \"mobileNumber\": [{\n      \"name\": \"Bot\",\n      \"countryCode\": \"91\",\n      \"contactNumber\": \"9123798723\"\n  }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"console.log(pm.cookies)",
-							"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
-							"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/user/id/admin123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"user",
+								"id",
+								"admin123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Email",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kart@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "mypass",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "SESSION",
+								"value": "0E31E3D68D30E8190FD956F39FE58728",
+								"type": "text",
+								"disabled": true
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-CSRF-TOKEN",
-						"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": \"dbhat6\",\n  \"firstName\": \"Deepak\",\n  \"lastName\": \"Bhat\",\n  \"email\": \"deepakbht67@gmail.com\",\n  \"password\": \"mypass\",\n  \"dateOfBirth\": \"2023-08-19\",\n  \"roles\": [\"ADMIN\"]\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+						"url": {
+							"raw": "http://localhost:9000/user/email/kart@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"user",
+								"email",
+								"kart@gmail.com"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "deepakbht67@gmail.com",
+									"disabled": true
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9000/user/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"user",
-						"register"
-					]
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/user?email=botdoe@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "botdoe@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User exists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/user/exists?id=admin123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"user",
+								"exists"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "admin123"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Actuator Info",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "mypass",
-							"type": "string"
+			"name": "Actuator",
+			"item": [
+				{
+					"name": "Actuator Info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "username",
-							"value": "deepakbht67@gmail.com",
-							"type": "string"
+						"url": {
+							"raw": "http://localhost:9000/actuator/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"actuator",
+								"info"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"vehicleId\": \"vehicle-001\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudENvZGUiOiJYWFhYIiwidmVoaWNsZUlkIjoidmVoaWNsZS0wMDEiLCJ2ZWhpY2xlc0ludm9sdmVkIjpbInZlaGljbGUtMDAyIiwidmVoaWNsZS0wMDMiXSwid2l0bmVzc1JlcG9ydHMiOlt7InZlaGljbGVJZCI6InZlaGljbGUtMDA0IiwiZGlkRXZlbnRPY2N1clRva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnlaWE53YjI1elpTSTZabUZzYzJWOS5Xek9tcldtdlZVS1pSVWltTXVPRDE0bEpfY3RXc0ZUVWROcHJjTjJhaWo1VER1YVFVNzZGcjE5Z1E0dTNOeUxqOElZZWZna0JsNkU5bV9UN0p3YlljZ3BQaXRsakhRXzBEb1oxMldSQU8xN3NPeGRFMDBGSEpwWFpTUFJ2YjBDU25ZU1YyLW1DbXUyN3k5N0M0NF9fMFR1WDFYeGZFWjZZdTVCUXY5TVdZZ3ViZEdkY2FOcloxVEYwSGpUUENLQXRtWFh5M1VJcWtyZEMtSGxjNGtKSi1EclZwSWtpWENuRVpjcUdFWFVpQlhUNEd2ZmhBRzRDUGVLcEZzUWsxSkVhT3B2b0dzUTVqVm9RbEpTZTZmaVdNX2daWG01YUdUaGhJekdiLXFMVTZHZjVSeW9GSEV1dlVlLVoyT25SS0I2X1VuWC1ZVV9PMmdLZ0RNZnBaWW9iRlEifSx7InZlaGljbGVJZCI6InZlaGljbGUtMDA1IiwiZGlkRXZlbnRPY2N1clRva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnlaWE53YjI1elpTSTZkSEoxWlgwLnNHaXUtVDNLZmZDSS1zeFZaS1VoTFg2ckZiRzhWamVaUjdGRnExcThLbGxHM0NSV3NJc0FkTlNNT2JBem1wRGhSWFdtbnZiUkFKMUZrMVFJY01XeUZfM2llMzlYZUR2aV9pWEdaamkwaE4zV2xqcW9VUmIwUm1lWXhoV0tSNGVTUmtTRVRnVnMwX2h0bWdqRVIxN3hMbkdpc0UwbDJlYUFSYTNuY1AxYzAyYjJ2OFdyZm42cS1uUVpGc2tpMnFpNXlxQ1F5djhTbENHVXQtcTF6bEtZUWoyckg4Mk5uei1pTXZ2R1dQazJXNnlwd2R1RXpIWjZhczVERW9LbGpzYkZpcUJOcThuNExndWk4WTlXdHp3Tlgtdnp4OWhpbDVtT04ySHVnVDR3YnF4cFZhcjFaU1RWcXkxc1VHRVdiQXBCb3paejktejZGWjdsZzFWYlEyMXk3dyJ9XX0.qH_Ws2lyBS4_N5J_V9veWqosLf4BFA2Jsw0_ycnXyLA2zS1ebryv8fstjCo_02fwzGkfEMUK5KfP5ftVUIrj60gTG9OYP83aRC2oCj6YFNJ5zUP5NXA6R3nmmKMxjXoS44mf2z4NvpNaaIZ-NPetlPtNtkKDwZJZ1A65rac_eZG6bdB1qD8leOJK3IoFun9GnofwRufGOvghgnbyYhlXixEg65VzKk7odRyP3glv3rG-4KQG7qWVxdsFoU00YX_d1RfmX6RNUbVf_mcX6L0Aj93dohx9AyUWfe1cl6kAl-6IdyMlXrZOWZcP3odY3BrmqQb3RyxURyZ29hgG7RYKzg\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Actuator Health",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"actuator",
+								"health"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9000/actuator/info",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"actuator",
-						"info"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get User by ID",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
+			"name": "Constituency",
+			"item": [
+				{
+					"name": "Create Constituency",
+					"event": [
 						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.cookies)",
+									"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
+									"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/user/id/dbhat6",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "9000",
-					"path": [
-						"user",
-						"id",
-						"dbhat6"
-					]
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "deepakbht67@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "mypass",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ShivajiNagar\",\n    \"leader\": \"Abdullah\",\n    \"facts\": [\"This area is best for second hand items lol\"],\n    \"geometry\": {\n        \"coordinates\": [\n            [\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ],\n                [\n                    77.60524042879086,\n                    12.981536727084546\n                ],\n                [\n                    77.60592443627212,\n                    12.982203252153298\n                ],\n                [\n                    77.61010448199329,\n                    12.980944258856269\n                ],\n                [\n                    77.61170049945105,\n                    12.98449904704185\n                ],\n                [\n                    77.61390452355863,\n                    12.99049763678336\n                ],\n                [\n                    77.60668444458588,\n                    12.995681486527886\n                ],\n                [\n                    77.6041764171527,\n                    12.992274968886548\n                ],\n                [\n                    77.60227639637054,\n                    12.991756581670856\n                ],\n                [\n                    77.60014837309427,\n                    12.992497134505314\n                ],\n                [\n                    77.59718434067395,\n                    12.983980643598954\n                ]\n            ]\n        ],\n        \"type\": \"Polygon\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/constituency",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"constituency"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Which Constituency",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.cookies)",
+									"var xsrfCookie = pm.cookies.get(\"XSRF-TOKEN\")",
+									"// pm.environment.set(\"xsrf-token\", xsrfCookie.value);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "wisImoHEqUeWCdZZvyABWYFExO6LoTTg",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ShivajiNagar\",\n    \"leader\": \"Abdullah\",\n    \"geometry\": {\n        \"coordinates\": [\n          77.6078306985616,\n          12.988851210398877\n        ],\n        \"type\": \"Point\"\n      }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/constituency/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"constituency",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Constituency",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/constituency/name/ShivajiNagar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"constituency",
+								"name",
+								"ShivajiNagar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count Constituencies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/constituency/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"constituency",
+								"count"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get User by Email",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "kart@gmail.com",
-							"type": "string"
+			"name": "Event",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tomorrowland4\",\n    \"description\": \"This is the best\",\n    \"type\": \"Festival\",\n    \"expireAt\": \"2023-09-22T01:26:15\",\n    \"geometry\": {\n        \"coordinates\": [\n            77.6050517599536,\n            12.98582658448143\n        ],\n        \"type\": \"Point\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "password",
-							"value": "mypass",
-							"type": "string"
+						"url": {
+							"raw": "http://localhost:9000/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"events"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "SESSION",
-						"value": "0E31E3D68D30E8190FD956F39FE58728",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9000/user/email/kart@gmail.com",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"user",
-						"email",
-						"kart@gmail.com"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "deepakbht67@gmail.com",
-							"disabled": true
+				{
+					"name": "Create Event Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tomorrowland\",\n    \"description\": \"This is the best\",\n    \"type\": \"Festival\",\n    \"expireAt\": \"2023-08-23T01:26:15\",\n    \"geometry\": {\n        \"coordinates\": [\n            77.6050517599536,\n            12.98582658448143\n        ],\n        \"type\": \"Point\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"events"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 1,\n    \"userId\": \"checking\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/rate/event/650c3a52031ab52603b9df16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"rate",
+								"event",
+								"650c3a52031ab52603b9df16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Event Rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/events/650c368a1a83fa7f33b24826/rating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"events",
+								"650c368a1a83fa7f33b24826",
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Events Nearby",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"xCoordinate\": 77.61576343727387,\n    \"yCoordinate\": 12.989605723965923,\n    \"minimumDistance\": 1,\n    \"maximumDistance\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/events/near",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"events",
+								"near"
+							]
+						}
+					},
+					"response": []
 				}
+			]
+		},
+		{
+			"name": "Local Businesses",
+			"item": [
+				{
+					"name": "Fetch Local B by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/localb/type/tailor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"localb",
+								"type",
+								"tailor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Local B",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prakash Tailors\",\n    \"description\": \"Men's tailor\",\n    \"type\": \"Tailor\",\n    \"geometry\": {\n        \"coordinates\": [\n            77.61686304683559,\n          12.990158747162894\n        ],\n        \"type\": \"Point\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/localb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"localb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Local B by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/localb/name/Prakash Tailors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"localb",
+								"name",
+								"Prakash Tailors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Local B Nearby",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"xCoordinate\": 77.61576343727387,\n    \"yCoordinate\": 12.989605723965923,\n    \"minimumDistance\": 0,\n    \"maximumDistance\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/localb/near",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"localb",
+								"near"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Local B Nearby Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"xCoordinate\": 77.61576343727387,\n    \"yCoordinate\": 12.989605723965923,\n    \"minimumDistance\": 0.1,\n    \"maximumDistance\": 0.2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/localb/near",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"localb",
+								"near"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Local Business Rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 6,\n    \"userId\": \"checking\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/rate/lb/64e8a37324cdcb584d1b0c4e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"rate",
+								"lb",
+								"64e8a37324cdcb584d1b0c4e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Public Authority",
+			"item": [
+				{
+					"name": "Create Public Authority",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"BBMP centre\",\n    \"description\": \"This is a BBMP centre\",\n    \"party\": \"BBMP\",\n    \"contact\": {\n        \"email\": [\"bbmpbang@gmail.com\"],\n        \"mobileNumbers\": [\n            {\n                \"name\": \"Rajeev\",\n                \"countryCode\": \"91\",\n                \"nationalNumber\": \"8867902224\"\n            },\n            {\n                \"name\": \"Salman\",\n                \"countryCode\": \"91\",\n                \"nationalNumber\": \"9480457646\"\n            }\n        ]\n    },\n    \"geometry\": {\n        \"coordinates\": [\n            77.61712002711772,\n          12.98922667861737\n        ],\n        \"type\": \"Point\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/authorities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"authorities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Public Authority Rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 9,\n    \"userId\": \"checking\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/rate/pa/650c373e1a83fa7f33b2482b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"rate",
+								"pa",
+								"650c373e1a83fa7f33b2482b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Otp",
+			"item": [
+				{
+					"name": "Create OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"8867902224\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"otp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "dbhat6",
+				"type": "string"
 			},
-			"response": []
+			{
+				"key": "password",
+				"value": "mypass",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

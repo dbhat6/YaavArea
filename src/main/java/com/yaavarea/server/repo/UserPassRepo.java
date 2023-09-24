@@ -11,4 +11,6 @@ public interface UserPassRepo extends MongoRepository<UserPass, String> {
     Optional<UserPass> findByUsername(String username);
 
     void deleteByUsername(String username);
+
+    void deleteByEmail(String email);
 }

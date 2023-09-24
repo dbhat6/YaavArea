@@ -35,7 +35,6 @@ public class UserService {
         user.setUserStats(new AdditionalUserInfoDto());
         user.setCreatedAt(LocalDateTime.now());
         userRepo.insert(user);
-        authService.saveUser(userDto);
         return user;
     }
 
@@ -73,6 +72,5 @@ public class UserService {
 
     public void removeUser(String email) {
         userRepo.deleteByEmail(email);
-        authService.removeUser(email);
     }
 }

@@ -8,6 +8,7 @@ import com.yaavarea.server.model.mongo.Constituencies;
 import com.yaavarea.server.service.ConstituencyService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
@@ -50,12 +51,12 @@ public class ConstituencyController {
 
     @PostMapping("/check")
     public ResponseEntity<ResponseDto> findIntersection(
-            @Valid @RequestBody ConstituencyDto constituencyDto) {
+            ConstituencyDto constituencyDto) {
         log.trace("Checking");
         try {
-            constituencyService.checkIntersection(new Point(new Position(77.6078306985616,
+            Document intersection = constituencyService.checkIntersection(new Point(new Position(77.6078306985616,
                     12.988851210398877)));
-            ResponseDto response = ResponseDto.builder().message("Constituency Created").build();
+            ResponseDto response = ResponseDto.builder().message("Constituency Created").data(intersection).build();
             return ResponseEntity.ok(response);
         } catch (DuplicateKeyException ex) {
             log.error("Constituency already exists");

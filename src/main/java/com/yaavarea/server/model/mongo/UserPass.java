@@ -21,5 +21,8 @@ public class UserPass {
     @Indexed(unique = true)
     private String username;
 
+    @Indexed(unique = true)
+    private String email;
+
     private String[] roles;
 }

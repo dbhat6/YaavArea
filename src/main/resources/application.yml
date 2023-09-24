@@ -1,6 +1,5 @@
 server:
   port: 9000
-
 spring:
   session:
     store-type: mongodb
@@ -34,3 +33,9 @@ logging:
     root: error
     com.yaavarea: trace
     web: error
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    display-request-duration: true
+    syntax-highlight:
+      theme: "obsidian"

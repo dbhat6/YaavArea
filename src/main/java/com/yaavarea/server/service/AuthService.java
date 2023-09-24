@@ -36,15 +36,17 @@ public class AuthService implements UserDetailsService {
         String passwd = user.getPassword();
         String encodedPassword = passwordEncoder.encode(passwd);
         UserPass userPass = new UserPass();
-        userPass.setUsername(user.getEmail());
+        userPass.setUsername(user.getId());
+        userPass.setEmail(user.getEmail());
+//        userPass.setUsername(user.getEmail());
         userPass.setPassword(encodedPassword);
         userPass.setRoles(user.getRoles());
         userPass = userPassRepo.insert(userPass);
         return userPass.getId();
     }
 
-    public boolean removeUser(String username) {
-        userPassRepo.deleteByUsername(username);
+    public boolean removeUser(String email) {
+        userPassRepo.deleteByEmail(email);
         return true;
     }
 }

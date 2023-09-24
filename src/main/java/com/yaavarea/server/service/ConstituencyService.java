@@ -4,7 +4,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.geojson.Geometry;
 import com.mongodb.client.model.geojson.Point;
 import com.yaavarea.server.config.MongoConfig;
 import com.yaavarea.server.model.dto.ConstituencyDto;
@@ -14,10 +13,7 @@ import com.yaavarea.server.repo.ConstituencyRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.MongoCollectionUtils;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
-import org.wololo.geojson.GeoJSON;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -59,10 +55,11 @@ public class ConstituencyService {
         return constituencyRepo.count();
     }
 
-    public void checkIntersection(Point point) {
-        Geometry geom = point;
+    public Document checkIntersection(Point point) {
+//        Geometry geom = point;
         FindIterable<Document> asd = collection.find(
-                Filters.geoIntersects("geometry", geom));
+                Filters.geoIntersects("geometry", point));
         System.out.println(asd.first());
+        return asd.first();
     }
 }
